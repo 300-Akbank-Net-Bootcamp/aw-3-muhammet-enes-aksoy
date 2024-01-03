@@ -12,8 +12,8 @@ using Vb.Data;
 namespace Vb.Data.Migrations
 {
     [DbContext(typeof(VbDbContext))]
-    [Migration("20231230073416_DeleteId")]
-    partial class DeleteId
+    [Migration("20240103192857_UniqueMigrationName")]
+    partial class UniqueMigrationName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

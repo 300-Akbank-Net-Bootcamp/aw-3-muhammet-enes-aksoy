@@ -8,42 +8,42 @@ namespace VbApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AddressesController : ControllerBase
+public class AccountTransactionsController : ControllerBase
 {
     private readonly IMediator mediator;
-    public AddressesController(IMediator mediator)
+    public AccountTransactionsController(IMediator mediator)
     {
         this.mediator = mediator;
     }
 
     [HttpGet]
-    public async Task<ApiResponse<List<AddressResponse>>> Get()
+    public async Task<ApiResponse<List<AccountTransactionResponse>>> Get()
     {
-        var operation = new GetAllAddressQuery();
+        var operation = new GetAllAccountTransactionQuery();
         var result = await mediator.Send(operation);
         return result;
     }
 
     [HttpGet("{id}")]
-    public async Task<ApiResponse<AddressResponse>> Get(int id)
+    public async Task<ApiResponse<AccountTransactionResponse>> Get(int id)
     {
-        var operation = new GetAddressByIdQuery(id);
+        var operation = new GetAccountTransactionByIdQuery(id);
         var result = await mediator.Send(operation);
         return result;
     }
-    
+
     [HttpPost]
-    public async Task<ApiResponse<AddressResponse>> Post([FromBody] AddressRequest Address)
+    public async Task<ApiResponse<AccountTransactionResponse>> Post([FromBody] AccountTransactionRequest AccountTransaction)
     {
-        var operation = new CreateAddressCommand(Address);
+        var operation = new CreateAccountTransactionCommand(AccountTransaction);
         var result = await mediator.Send(operation);
         return result;
     }
 
     [HttpPut("{id}")]
-    public async Task<ApiResponse> Put(int id, [FromBody] AddressRequest Address)
+    public async Task<ApiResponse> Put(int id, [FromBody] AccountTransactionRequest AccountTransaction)
     {
-        var operation = new UpdateAddressCommand(id,Address);
+        var operation = new UpdateAccountTransactionCommand(id,AccountTransaction);
         var result = await mediator.Send(operation);
         return result;
     }
@@ -51,7 +51,7 @@ public class AddressesController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ApiResponse> Delete(int id)
     {
-        var operation = new DeleteAddressCommand(id);
+        var operation = new DeleteAccountTransactionCommand(id);
         var result = await mediator.Send(operation);
         return result;
     }

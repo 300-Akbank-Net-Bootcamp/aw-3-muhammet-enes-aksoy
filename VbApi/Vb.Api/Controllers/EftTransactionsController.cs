@@ -8,42 +8,42 @@ namespace VbApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AddressesController : ControllerBase
+public class EftTransactionsController : ControllerBase
 {
     private readonly IMediator mediator;
-    public AddressesController(IMediator mediator)
+    public EftTransactionsController(IMediator mediator)
     {
         this.mediator = mediator;
     }
 
     [HttpGet]
-    public async Task<ApiResponse<List<AddressResponse>>> Get()
+    public async Task<ApiResponse<List<EftTransactionResponse>>> Get()
     {
-        var operation = new GetAllAddressQuery();
+        var operation = new GetAllEftTransactionQuery();
         var result = await mediator.Send(operation);
         return result;
     }
 
     [HttpGet("{id}")]
-    public async Task<ApiResponse<AddressResponse>> Get(int id)
+    public async Task<ApiResponse<EftTransactionResponse>> Get(int id)
     {
-        var operation = new GetAddressByIdQuery(id);
+        var operation = new GetEftTransactionByIdQuery(id);
         var result = await mediator.Send(operation);
         return result;
     }
-    
+
     [HttpPost]
-    public async Task<ApiResponse<AddressResponse>> Post([FromBody] AddressRequest Address)
+    public async Task<ApiResponse<EftTransactionResponse>> Post([FromBody] EftTransactionRequest EftTransaction)
     {
-        var operation = new CreateAddressCommand(Address);
+        var operation = new CreateEftTransactionCommand(EftTransaction);
         var result = await mediator.Send(operation);
         return result;
     }
 
     [HttpPut("{id}")]
-    public async Task<ApiResponse> Put(int id, [FromBody] AddressRequest Address)
+    public async Task<ApiResponse> Put(int id, [FromBody] EftTransactionRequest EftTransaction)
     {
-        var operation = new UpdateAddressCommand(id,Address);
+        var operation = new UpdateEftTransactionCommand(id,EftTransaction);
         var result = await mediator.Send(operation);
         return result;
     }
@@ -51,7 +51,7 @@ public class AddressesController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ApiResponse> Delete(int id)
     {
-        var operation = new DeleteAddressCommand(id);
+        var operation = new DeleteEftTransactionCommand(id);
         var result = await mediator.Send(operation);
         return result;
     }
