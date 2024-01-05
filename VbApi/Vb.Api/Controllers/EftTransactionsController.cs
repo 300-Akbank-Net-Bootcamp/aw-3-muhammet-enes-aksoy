@@ -32,6 +32,14 @@ public class EftTransactionsController : ControllerBase
         return result;
     }
 
+    [HttpGet("parameter")]
+    public async Task<ApiResponse<List<EftTransactionResponse>>> Get(string accountId)
+    {
+        var operation = new GetEftTransactionByParameterQuery(accountId);
+        var result = await mediator.Send(operation);
+        return result;
+    }
+
     [HttpPost]
     public async Task<ApiResponse<EftTransactionResponse>> Post([FromBody] EftTransactionRequest EftTransaction)
     {

@@ -58,7 +58,7 @@ public class AccountQueryHandler :
             .Include(x => x.AccountTransactions)
             .Include(x => x.EftTransactions)
             .Where(x =>
-            x.Name.ToUpper().Contains(request.Name.ToUpper()) 
+            x.Customer.FirstName.ToUpper().Contains(request.CustomerName.ToUpper()) 
         ).ToListAsync(cancellationToken);
         
         var mappedList = mapper.Map<List<Account>, List<AccountResponse>>(list);

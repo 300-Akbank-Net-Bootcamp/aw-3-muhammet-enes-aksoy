@@ -26,16 +26,9 @@ public class AccountTransactionCommandHandler :
 
     public async Task<ApiResponse<AccountTransactionResponse>> Handle(CreateAccountTransactionCommand request, CancellationToken cancellationToken)
     {
-        var checkIdentity = await dbContext.Set<AccountTransaction>().Where(x => x.AccountId == request.Model.AccountId)
-            .FirstOrDefaultAsync(cancellationToken);
-        if (checkIdentity != null)
-        {
-            return new ApiResponse<AccountTransactionResponse>($"{request.Model.AccountId} is used by another AccountTransaction.");
-        }
-        
+                
         var entity = mapper.Map<AccountTransactionRequest, AccountTransaction>(request.Model);
-        entity.AccountId = new Random().Next(1000000, 9999999);
-        
+            
         var entityResult = await dbContext.AddAsync(entity, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 
@@ -45,7 +38,7 @@ public class AccountTransactionCommandHandler :
 
     public async Task<ApiResponse> Handle(UpdateAccountTransactionCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<AccountTransaction>().Where(x => x.AccountId == request.Id)
+        var fromdb = await dbContext.Set<AccountTransaction>().Where(x => x.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
         if (fromdb == null)
         {
@@ -54,14 +47,16 @@ public class AccountTransactionCommandHandler :
         
         fromdb.Amount = request.Model.Amount;
         fromdb.Description = request.Model.Description;
-        
+        fromdb.ReferenceNumber = request.Model.ReferenceNumber;
+        fromdb.TransactionDate = request.Model.TransactionDate;
+
         await dbContext.SaveChangesAsync(cancellationToken);
         return new ApiResponse();
     }
 
     public async Task<ApiResponse> Handle(DeleteAccountTransactionCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<AccountTransaction>().Where(x => x.AccountId == request.Id)
+        var fromdb = await dbContext.Set<AccountTransaction>().Where(x => x.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
         
         if (fromdb == null)

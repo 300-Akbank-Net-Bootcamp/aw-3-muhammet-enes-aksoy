@@ -12,7 +12,7 @@ using Vb.Data;
 namespace Vb.Data.Migrations
 {
     [DbContext(typeof(VbDbContext))]
-    [Migration("20240103192857_UniqueMigrationName")]
+    [Migration("20240105190542_UniqueMigrationName")]
     partial class UniqueMigrationName
     {
         /// <inheritdoc />

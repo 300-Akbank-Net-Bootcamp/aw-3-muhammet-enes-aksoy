@@ -26,15 +26,8 @@ public class AddressCommandHandler :
 
     public async Task<ApiResponse<AddressResponse>> Handle(CreateAddressCommand request, CancellationToken cancellationToken)
     {
-        var checkIdentity = await dbContext.Set<Address>().Where(x => x.CustomerId == request.Model.CustomerId)
-            .FirstOrDefaultAsync(cancellationToken);
-        if (checkIdentity != null)
-        {
-            return new ApiResponse<AddressResponse>($"{request.Model.CustomerId} is used by another Address.");
-        }
         
         var entity = mapper.Map<AddressRequest, Address>(request.Model);
-        entity.CustomerId = new Random().Next(1000000, 9999999);
         
         var entityResult = await dbContext.AddAsync(entity, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
@@ -45,8 +38,9 @@ public class AddressCommandHandler :
 
     public async Task<ApiResponse> Handle(UpdateAddressCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<Address>().Where(x => x.CustomerId == request.Id)
+        var fromdb = await dbContext.Set<Address>().Where(x => x.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
+
         if (fromdb == null)
         {
             return new ApiResponse("Record not found");
@@ -61,7 +55,7 @@ public class AddressCommandHandler :
 
     public async Task<ApiResponse> Handle(DeleteAddressCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<Address>().Where(x => x.CustomerId == request.Id)
+        var fromdb = await dbContext.Set<Address>().Where(x => x.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
         
         if (fromdb == null)

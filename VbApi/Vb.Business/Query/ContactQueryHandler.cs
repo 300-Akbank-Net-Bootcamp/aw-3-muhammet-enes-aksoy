@@ -26,10 +26,9 @@ public class ContactQueryHandler :
     public async Task<ApiResponse<List<ContactResponse>>> Handle(GetAllContactQuery request,
         CancellationToken cancellationToken)
     {
-        var list = await dbContext.Set<Contact>().ToListAsync(cancellationToken);
-        
+        var list = await dbContext.Set<Contact>().ToListAsync(cancellationToken);       
         var mappedList = mapper.Map<List<Contact>, List<ContactResponse>>(list);
-         return new ApiResponse<List<ContactResponse>>(mappedList);
+        return new ApiResponse<List<ContactResponse>>(mappedList);
     }
 
     public async Task<ApiResponse<ContactResponse>> Handle(GetContactByIdQuery request,

@@ -25,9 +25,7 @@ public class AddressQueryHandler :
     public async Task<ApiResponse<List<AddressResponse>>> Handle(GetAllAddressQuery request,
         CancellationToken cancellationToken)
     {
-        var list = await dbContext.Set<Address>()
-            .Include(x => x.Customer).ToListAsync(cancellationToken);
-        
+        var list = await dbContext.Set<Address>().ToListAsync(cancellationToken);
         var mappedList = mapper.Map<List<Address>, List<AddressResponse>>(list);
          return new ApiResponse<List<AddressResponse>>(mappedList);
     }
@@ -35,9 +33,7 @@ public class AddressQueryHandler :
     public async Task<ApiResponse<AddressResponse>> Handle(GetAddressByIdQuery request,
         CancellationToken cancellationToken)
     {
-        var entity =  await dbContext.Set<Address>()
-            .Include(x => x.Customer)
-            .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+        var entity =  await dbContext.Set<Address>().FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
         if (entity == null)
         {
@@ -53,9 +49,7 @@ public class AddressQueryHandler :
         var list =  await dbContext.Set<Address>()
             .Include(x => x.Customer)
             .Where(x =>
-            x.Country.ToUpper().Contains(request.Country.ToUpper()) ||
             x.City.ToUpper().Contains(request.City.ToUpper()) 
-            //x.IdentityNumber.ToUpper().Contains(request.IdentiyNumber.ToUpper())
         ).ToListAsync(cancellationToken);
         
         var mappedList = mapper.Map<List<Address>, List<AddressResponse>>(list);

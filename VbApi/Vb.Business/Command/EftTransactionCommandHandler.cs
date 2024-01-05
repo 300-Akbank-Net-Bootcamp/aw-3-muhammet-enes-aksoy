@@ -25,16 +25,8 @@ public class EftTransactionCommandHandler :
     }
 
     public async Task<ApiResponse<EftTransactionResponse>> Handle(CreateEftTransactionCommand request, CancellationToken cancellationToken)
-    {
-        var checkIdentity = await dbContext.Set<EftTransaction>().Where(x => x.AccountId == request.Model.AccountId)
-            .FirstOrDefaultAsync(cancellationToken);
-        if (checkIdentity != null)
-        {
-            return new ApiResponse<EftTransactionResponse>($"{request.Model.AccountId} is used by another EftTransaction.");
-        }
-        
+    {    
         var entity = mapper.Map<EftTransactionRequest, EftTransaction>(request.Model);
-        entity.AccountId = new Random().Next(1000000, 9999999);
         
         var entityResult = await dbContext.AddAsync(entity, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
@@ -45,7 +37,7 @@ public class EftTransactionCommandHandler :
 
     public async Task<ApiResponse> Handle(UpdateEftTransactionCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<EftTransaction>().Where(x => x.AccountId == request.Id)
+        var fromdb = await dbContext.Set<EftTransaction>().Where(x => x.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
         if (fromdb == null)
         {
@@ -61,15 +53,14 @@ public class EftTransactionCommandHandler :
 
     public async Task<ApiResponse> Handle(DeleteEftTransactionCommand request, CancellationToken cancellationToken)
     {
-        var fromdb = await dbContext.Set<EftTransaction>().Where(x => x.AccountId == request.Id)
+        var fromdb = await dbContext.Set<EftTransaction>().Where(x => x.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
         
         if (fromdb == null)
         {
             return new ApiResponse("Record not found");
         }
-        //dbContext.Set<EftTransaction>().Remove(fromdb);
-        
+                
         fromdb.IsActive = false;
         await dbContext.SaveChangesAsync(cancellationToken);
         return new ApiResponse();

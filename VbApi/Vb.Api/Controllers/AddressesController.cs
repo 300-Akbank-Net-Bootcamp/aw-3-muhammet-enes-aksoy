@@ -31,7 +31,15 @@ public class AddressesController : ControllerBase
         var result = await mediator.Send(operation);
         return result;
     }
-    
+
+    [HttpGet("parameter")]
+    public async Task<ApiResponse<List<AddressResponse>>> Get(string city)
+    {
+        var operation = new GetAddressByParameterQuery(city);
+        var result = await mediator.Send(operation);
+        return result;
+    }
+
     [HttpPost]
     public async Task<ApiResponse<AddressResponse>> Post([FromBody] AddressRequest Address)
     {

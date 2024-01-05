@@ -26,16 +26,9 @@ public class AccountCommandHandler :
 
     public async Task<ApiResponse<AccountResponse>> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
-        var checkIdentity = await dbContext.Set<Account>().Where(x => x.CustomerId == request.Model.CustomerId)
-            .FirstOrDefaultAsync(cancellationToken);
-        if (checkIdentity != null)
-        {
-            return new ApiResponse<AccountResponse>($"{request.Model.CustomerId} is used by another Account.");
-        }
-        
+                
         var entity = mapper.Map<AccountRequest, Account>(request.Model);
-        entity.AccountNumber = new Random().Next(1000000, 9999999);
-        
+               
         var entityResult = await dbContext.AddAsync(entity, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 
@@ -52,8 +45,8 @@ public class AccountCommandHandler :
             return new ApiResponse("Record not found");
         }
         
-        fromdb.AccountNumber = request.Model.AccountNumber;
         fromdb.IBAN = request.Model.IBAN;
+        fromdb.Balance = request.Model.Balance;
         
         await dbContext.SaveChangesAsync(cancellationToken);
         return new ApiResponse();
@@ -68,7 +61,6 @@ public class AccountCommandHandler :
         {
             return new ApiResponse("Record not found");
         }
-        //dbContext.Set<Account>().Remove(fromdb);
         
         fromdb.IsActive = false;
         await dbContext.SaveChangesAsync(cancellationToken);

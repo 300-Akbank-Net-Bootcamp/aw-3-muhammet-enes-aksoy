@@ -32,6 +32,14 @@ public class ContactsController : ControllerBase
         return result;
     }
 
+    [HttpGet("parameter")]
+    public async Task<ApiResponse<List<ContactResponse>>> Get(string customerName)
+    {
+        var operation = new GetContactByParameterQuery(customerName);
+        var result = await mediator.Send(operation);
+        return result;
+    }
+
     [HttpPost]
     public async Task<ApiResponse<ContactResponse>> Post([FromBody] ContactRequest Contact)
     {

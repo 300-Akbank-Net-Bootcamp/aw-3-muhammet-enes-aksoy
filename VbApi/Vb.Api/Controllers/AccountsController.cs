@@ -32,6 +32,14 @@ public class AccountsController : ControllerBase
         return result;
     }
 
+    [HttpGet("parameter")]
+    public async Task<ApiResponse<List<AccountResponse>>> Get(string customerName)
+    {
+        var operation = new GetAccountByParameterQuery(customerName);
+        var result = await mediator.Send(operation);
+        return result;
+    }
+
     [HttpPost]
     public async Task<ApiResponse<AccountResponse>> Post([FromBody] AccountRequest Account)
     {
@@ -43,7 +51,7 @@ public class AccountsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ApiResponse> Put(int id, [FromBody] AccountRequest Account)
     {
-        var operation = new UpdateAccountCommand(id,Account);
+        var operation = new UpdateAccountCommand(id, Account);
         var result = await mediator.Send(operation);
         return result;
     }
