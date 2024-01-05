@@ -28,6 +28,7 @@ public class AccountQueryHandler :
     {
         var list = await dbContext.Set<Account>()
             .Include(x => x.AccountTransactions)
+            .Include(x => x.Customer)
             .Include(x => x.EftTransactions).ToListAsync(cancellationToken);
         
         var mappedList = mapper.Map<List<Account>, List<AccountResponse>>(list);
@@ -40,6 +41,7 @@ public class AccountQueryHandler :
         var entity =  await dbContext.Set<Account>()
             .Include(x => x.AccountTransactions)
             .Include(x => x.EftTransactions)
+            .Include(x => x.Customer)
             .FirstOrDefaultAsync(x => x.AccountNumber == request.Id, cancellationToken);
 
         if (entity == null)
@@ -57,6 +59,7 @@ public class AccountQueryHandler :
         var list =  await dbContext.Set<Account>()
             .Include(x => x.AccountTransactions)
             .Include(x => x.EftTransactions)
+            .Include(x => x.Customer)
             .Where(x =>
             x.Customer.FirstName.ToUpper().Contains(request.CustomerName.ToUpper()) 
         ).ToListAsync(cancellationToken);
