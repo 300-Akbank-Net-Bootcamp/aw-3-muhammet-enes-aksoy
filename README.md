@@ -33,11 +33,11 @@ Customer Management System is a .NET Core application designed to manage custome
 ![Screenshot_6](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/fe793e8b-07ed-40cc-84e7-ca32e88f92e0)
 
 - **GET /api/addresses:**
-    ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/f0c661df-57d3-47b9-9f91-63b8134dae24)
-  
+    ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/4df2a9eb-4e2f-4f22-a4cd-09def4f63b11)
+
 - **GET /api/addresses/{id}:**
-   ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/14f90e5f-2228-428d-b19f-2c4542b42d96)
-  
+  ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/8974c1cd-ace7-41fd-a123-5a82ea4eb9f5)
+
 - **GET /api/addresses/parameter:**
   
 - **POST /api/addresses:**
@@ -56,7 +56,8 @@ Customer Management System is a .NET Core application designed to manage custome
 ![Screenshot_7](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/10ba8ea6-e006-442b-854a-ca34596cd938)
 
 - **GET /api/contacts:**
-  
+  ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/2af9429b-7327-44d2-8419-552f0dd3b0da)
+
 - **GET /api/contacts/{id}:**
   
 - **GET /api/contacts/parameter:**
@@ -78,7 +79,8 @@ Customer Management System is a .NET Core application designed to manage custome
 ![Screenshot_4](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/d990c146-ad58-44cb-a651-f0247690ddf2)
 
 - **GET /api/accounts:**
-    ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/d72558be-fbe3-4502-81b5-fe2fa999279a)
+    ![image](https://github.com/300-Akbank-Net-Bootcamp/aw-3-muhammet-enes-aksoy/assets/97848966/a3c10c32-29ab-4564-ab24-61290c1955d0)
+
 
 - **GET /api/accounts/{id}:**
   
